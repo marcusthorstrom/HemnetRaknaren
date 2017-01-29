@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Test Extension Options</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <style media="screen">
+    .inputs {
+      width: 50%;
+      margin: auto;
+    }
+
+  </style>
+
+  <div class="content">
+    <div class="inputs">
+      <h1>Inställningar</h1>
+      <div class="form-group">
+        <label for="interest">Ränta (%)</label>
+        <input type="number" step="0.01" id="intrest" value="2.0" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="cash">Kontantinsats</label>
+        <input type="number" step="10000" id="cash" value="100000" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="amortization">Amortering (minimalt om 0)</label>
+        <input type="number" step="100" id="amortization" value="" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="increase">Prisuppgång (%)</label>
+        <input type="number" step="1" id="increase" value="15" class="form-control">
+      </div>
+
+      <div id="status"></div>
+      <button id="save">Spara</button>
+    </div>
+    <script src="options.js"></script>
+  </div>
+
+</body>
+</html>
