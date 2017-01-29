@@ -16,6 +16,9 @@ chrome.storage.sync.get(function(items){
       // Parse the montly fee
       var fee = listings[i].getElementsByClassName("fee")[0].innerText.replace("kr/mån", "")
         .replace(new RegExp(" ", 'g'), "").replace(new RegExp(String.fromCharCode(160), "g"), "");
+        if(fee===""){
+          fee = 0
+        }
         fee = parseInt(fee)
     }
     var amortization;
@@ -24,6 +27,7 @@ chrome.storage.sync.get(function(items){
     }else {
       amortization = items.amortization
     }
+
     var montlyFee = calcMothCost(price, items.intrest, fee, items.cash, amortization);
 
     if(listings[i].getElementsByClassName("attributes prices").length > 0 && montlyFee > 0) {
@@ -34,7 +38,7 @@ chrome.storage.sync.get(function(items){
 
       var node = document.createElement("LI")
       node.className = 'item-result-meta-attribute-subtle'
-      var textnode = document.createTextNode(Math.round(montlyFee) + " kr/mån");
+      var textnode = document.createTextNode(Math.round(montlyFee).toLocaleString('sv', style="currency") + " kr/mån");
       node.appendChild(textnode);
       prices.appendChild(node);
     }
