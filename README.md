@@ -1,6 +1,19 @@
 # HemnetRaknaren
 Chrome plugin för att beräkna månadskostnader på Hemnet. Detta är mitt första plugin, så det lär ha en del problem.
 
+## Installera
+För att installera detta plugin så krävs att man:
+
+1. Laddar ner och packar upp pluginet till valfri plats på datorn. (Via download ZIP)
+
+![Ladda ned](https://github.com/marcusthorstrom/HemnetRaknaren/blob/master/images/Download.png "Download") 
+
+2. Går till _chrome://extensions/_ och aktiverar programmerarläge (Högst upp till höger)
+3. Laddar in pluginet via _Hämta okomprimerat tillägg..._ och bläddrar fram var man packade upp det i steg 1
+4. Nu har ett **H** dykt upp i navigationen till höger, högerklicka på detta och välj: _Alternativ_
+5. Nu är det bara att spara önskade inställningar och köra!
+
+
 ## Bilder
 
 ### Inställningar
