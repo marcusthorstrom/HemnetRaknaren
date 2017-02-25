@@ -18,7 +18,3 @@ När alla inställningar är gjorda, så kan man se slutpriserna direkt i list-v
 
 När man går in på ett objekt, så syns en uträkning mellan rubrikerna **Räkna på ditt nya boende** och **Karta & restider**.
 Här finns även en tabell för att se hur månadsavgiften förändras beroende på ränteuppgånger.
-
-
-## TODO:
-1. Read the Driftkostnad of houses

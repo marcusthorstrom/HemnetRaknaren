@@ -28,7 +28,7 @@ chrome.storage.sync.get(function(items){
       amortization = items.amortization
     }
 
-    var montlyFee = calcMothCost(price, items.intrest, fee, items.cash, amortization);
+    var montlyFee = calcMothCost(price, items.intrest, fee, items.cash, amortization, 0);
 
     if(listings[i].getElementsByClassName("attributes prices").length > 0 && montlyFee > 0) {
       // Now append the new fee to each object.
@@ -38,7 +38,7 @@ chrome.storage.sync.get(function(items){
 
       var node = document.createElement("LI")
       node.className = 'item-result-meta-attribute-subtle'
-      var textnode = document.createTextNode(Math.round(montlyFee).toLocaleString('sv', style="currency") + " kr/mån");
+      var textnode = document.createTextNode("~"+Math.round(montlyFee).toLocaleString('sv', style="currency") + " kr/mån");
       node.appendChild(textnode);
       prices.appendChild(node);
     }

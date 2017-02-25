@@ -1,6 +1,6 @@
 
 // Returns the price of the apartment/house, -1 if it is not possible to buy
-function calcMothCost(price, intrest, monthlyFee, cash, amortization) {
+function calcMothCost(price, intrest, monthlyFee, cash, amortization, runningCost) {
   // First, check if the cash is atleast 15% of the price - Amorteringskravet
   if(price*0.15 > cash) {
     return -1
@@ -8,7 +8,7 @@ function calcMothCost(price, intrest, monthlyFee, cash, amortization) {
 
   var monthlyInterest = calcIntrest(price, cash, intrest)
   var montlyAmortization = calcAmortization(price, cash, amortization)
-  return (monthlyInterest + montlyAmortization + monthlyFee)
+  return (monthlyInterest + montlyAmortization + monthlyFee + runningCost)
 
 }
 

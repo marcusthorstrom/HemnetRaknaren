@@ -14,12 +14,24 @@ if(!chrome.storage) { // NO storage == No settings
     // Get the fee
     var attributes = document.getElementsByClassName("property__attributes")[0]
     var fee = 0;
+    var runningCost = 0;
     for (var i = 0; i < attributes.children.length; i++) {
       if (attributes.children[i].innerText === "Avgift/månad") {
         // Save the one that comes after
         fee = attributes.children[i+1].innerText.replace("kr/mån", "")
           .replace(new RegExp(" ", 'g'), "").replace(new RegExp(String.fromCharCode(160), "g"), "");
         fee = parseInt(fee)
+      }
+      if(attributes.children[i].innerText === "Driftkostnad") {
+        // Calculated yearly
+        if(attributes.children[i+1].innerText.indexOf("kr/år") != -1) {
+          runningCost = attributes.children[i+1].innerText.replace("kr/år", "")
+            .replace(new RegExp(" ", 'g'), "").replace(new RegExp(String.fromCharCode(160), "g"), "") / 12;
+        } // Calculated montly
+        else if (attributes.children[i+1].innerText.indexOf("kr/månad") != -1) {
+          runningCost = attributes.children[i+1].innerText.replace("kr/mån", "")
+            .replace(new RegExp(" ", 'g'), "").replace(new RegExp(String.fromCharCode(160), "g"), "");
+        }
       }
     }
     var amortization;
@@ -56,7 +68,8 @@ if(!chrome.storage) { // NO storage == No settings
       "<tr><td>Månadsavgift</td><td>"+fee.toLocaleString('sv', style="currency")+"</td></tr>"+
       "<tr><td>Amortering</td><td>"+Math.round(calcAmortization(price, items.cash, amortization)).toLocaleString('sv', style="currency")+"</td></tr>"+
       "<tr><td>Ränta*</td><td>"+Math.round(calcIntrest(price, items.cash, items.intrest)).toLocaleString('sv', style="currency")+"</td></tr>"+
-      "<tr class='summation'><td>Summa</td><td>"+Math.round(calcMothCost(price, items.intrest, fee, items.cash, amortization)).toLocaleString('sv', style="currency")+"</td></td>"+
+      "<tr><td>Månadskostnad</td><td>"+Math.round(runningCost).toLocaleString('sv', style="currency")+"</td></tr>"+
+      "<tr class='summation'><td>Summa</td><td>"+Math.round(calcMothCost(price, items.intrest, fee, items.cash, amortization, runningCost)).toLocaleString('sv', style="currency")+"</td></td>"+
     "</table>"+
     "<p>*Inkluderar ej ränteavdrag på ca 30%"+
     "<h4 style='text-align:center'>Ränteförändringar</h4>"+
@@ -64,10 +77,10 @@ if(!chrome.storage) { // NO storage == No settings
       "<thead>"+
         "<tr><th>Ränteskillnad</th><th>Totalavgift</th></tr>"+
       "</thead>"+
-      "<tr><td>"+items.intrest+"%</td><td>"+Math.round(calcMothCost(price, items.intrest, fee, items.cash, amortization)).toLocaleString('sv', style="currency")+"</td></tr>"+
-      "<tr><td>"+(items.intrest+1)+"%</td><td>"+Math.round(calcMothCost(price, (items.intrest+1), fee, items.cash, amortization)).toLocaleString('sv', style="currency")+"</td></tr>"+
-      "<tr><td>"+(items.intrest+2)+"%</td><td>"+Math.round(calcMothCost(price, (items.intrest+2), fee, items.cash, amortization)).toLocaleString('sv', style="currency")+"</td></tr>"+
-      "<tr><td>"+(items.intrest+3)+"%</td><td>"+Math.round(calcMothCost(price, (items.intrest+3), fee, items.cash, amortization)).toLocaleString('sv', style="currency")+"</td></tr>"+
+      "<tr><td>"+items.intrest+"%</td><td>"+Math.round(calcMothCost(price, items.intrest, fee, items.cash, amortization, runningCost)).toLocaleString('sv', style="currency")+"</td></tr>"+
+      "<tr><td>"+(items.intrest+1)+"%</td><td>"+Math.round(calcMothCost(price, (items.intrest+1), fee, items.cash, amortization, runningCost)).toLocaleString('sv', style="currency")+"</td></tr>"+
+      "<tr><td>"+(items.intrest+2)+"%</td><td>"+Math.round(calcMothCost(price, (items.intrest+2), fee, items.cash, amortization, runningCost)).toLocaleString('sv', style="currency")+"</td></tr>"+
+      "<tr><td>"+(items.intrest+3)+"%</td><td>"+Math.round(calcMothCost(price, (items.intrest+3), fee, items.cash, amortization, runningCost)).toLocaleString('sv', style="currency")+"</td></tr>"+
 
     "</table>"+
     "<style>"+
